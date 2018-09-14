@@ -8,7 +8,7 @@ let url = "www.mozilla.org"
 let urlLabel = "Internet for people, not profit — Mozilla"
 let urlValue = "mozilla.org"
 
-let urlExample = "example.com"
+let urlExample = "http://localhost:6571/test-example.html"
 let urlLabelExample = "Example Domain"
 let urlValueExample = "example"
 

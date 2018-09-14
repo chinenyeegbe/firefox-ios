@@ -179,7 +179,7 @@ class SearchTests: BaseTestCase {
     }
 
     func testSearchWithFirefoxOption() {
-        navigator.openURL("mozilla.org/en-US/book")
+        navigator.openURL("http://localhost:6571/test-mozilla-book.html")
         waitUntilPageLoad()
         // Select some text and long press to find the option
         app.webViews.staticTexts["cloud"].press(forDuration: 1)

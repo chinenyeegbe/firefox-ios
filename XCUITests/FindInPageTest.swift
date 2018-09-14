@@ -6,6 +6,7 @@ import XCTest
 
 class FindInPageTests: BaseTestCase {
     private func openFindInPageFromMenu() {
+        userState.url = "http://localhost:6571/test-mozilla-book.html"
         navigator.goto(BrowserTab)
         waitUntilPageLoad()
         navigator.goto(PageOptionsMenu)
@@ -13,7 +14,8 @@ class FindInPageTests: BaseTestCase {
 
         waitforExistence(app.buttons["FindInPage.find_next"], timeout: 5)
         waitforExistence(app.buttons["FindInPage.find_previous"], timeout: 5)
-        XCTAssertTrue(app.textFields[""].exists)
+        print(app.debugDescription)
+        XCTAssertTrue(app.textFields["FindInPage.searchField"].exists)
     }
 
     func testFindInLargeDoc() {
@@ -30,7 +32,7 @@ class FindInPageTests: BaseTestCase {
         openFindInPageFromMenu()
 
         // Enter some text to start finding
-        app.textFields[""].typeText("Book")
+        app.textFields["FindInPage.searchField"].typeText("Book")
 
         // Once there are matches, test previous/next buttons
         waitforExistence(app.staticTexts["1/6"])

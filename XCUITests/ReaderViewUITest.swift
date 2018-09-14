@@ -6,6 +6,7 @@ import XCTest
 
 class ReaderViewTest: BaseTestCase {
     func testLoadReaderContent() {
+        userState.url = "http://localhost:6571/test-mozilla-book.html"
         navigator.goto(BrowserTab)
         app.buttons["Reader View"].tap()
         app.buttons["Reload"].tap()
@@ -15,6 +16,7 @@ class ReaderViewTest: BaseTestCase {
     }
 
     private func addContentToReaderView() {
+        userState.url = "http://localhost:6571/test-mozilla-book.html"
         navigator.goto(BrowserTab)
         waitUntilPageLoad()
         app.buttons["Reader View"].tap()
@@ -154,6 +156,7 @@ class ReaderViewTest: BaseTestCase {
         checkReadingListNumberOfItems(items: 0)
 
         // Add item to Reading List from Page Options Menu
+        userState.url = "http://localhost:6571/test-mozilla-book.html"
         navigator.goto(BrowserTab)
         waitUntilPageLoad()
         navigator.browserPerformAction(.addReadingListOption)

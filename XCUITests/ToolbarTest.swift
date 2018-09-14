@@ -4,8 +4,8 @@
 
 import XCTest
 
-let website1: [String: String] = ["url": "www.mozilla.org", "label": "Internet for people, not profit — Mozilla", "value": "mozilla.org"]
-let website2 = "example.com"
+let website1: [String: String] = ["url": "http://localhost:6571/test-mozilla-org.html", "label": "Internet for people, not profit — Mozilla", "value": "localhost:6571"]
+let website2 = "http://localhost:6571/test-example.html"
 
 let PDFWebsite = ["url": "http://www.pdf995.com/samples/pdf.pdf"]
 
@@ -38,13 +38,14 @@ class ToolbarTests: BaseTestCase {
         navigator.openURL(website1["url"]!)
         waitForValueContains(app.textFields["url"], value: website1["value"]!)
 
+
         XCTAssertTrue(app.buttons["URLBarView.backButton"].isEnabled)
         XCTAssertFalse(app.buttons["Forward"].isEnabled)
         XCTAssertTrue(app.buttons["Reload"].isEnabled)
 
         navigator.openURL(website2)
         waitUntilPageLoad()
-        waitForValueContains(app.textFields["url"], value: website2)
+        waitForValueContains(app.textFields["url"], value: "localhost:6571")
         XCTAssertTrue(app.buttons["URLBarView.backButton"].isEnabled)
         XCTAssertFalse(app.buttons["Forward"].isEnabled)
 
