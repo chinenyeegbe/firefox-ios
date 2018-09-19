@@ -14,7 +14,6 @@ class FindInPageTests: BaseTestCase {
 
         waitforExistence(app.buttons["FindInPage.find_next"], timeout: 5)
         waitforExistence(app.buttons["FindInPage.find_previous"], timeout: 5)
-        print(app.debugDescription)
         XCTAssertTrue(app.textFields["FindInPage.searchField"].exists)
     }
 

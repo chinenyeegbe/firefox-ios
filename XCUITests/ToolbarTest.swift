@@ -4,8 +4,8 @@
 
 import XCTest
 
-let website1: [String: String] = ["url": "http://localhost:6571/test-mozilla-org.html", "label": "Internet for people, not profit — Mozilla", "value": "localhost:6571"]
-let website2 = "http://localhost:6571/test-example.html"
+let website1: [String: String] = ["url": path(forTestPage: "test-mozilla-org.html"), "label": "Internet for people, not profit — Mozilla", "value": "localhost:6571"]
+let website2 = path(forTestPage: "test-example.html")
 
 let PDFWebsite = ["url": "http://www.pdf995.com/samples/pdf.pdf"]
 

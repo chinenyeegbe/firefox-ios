@@ -595,7 +595,7 @@ extension TabManager {
     }
 
     func restoreTabs() {
-        guard !AppConstants.IsRunningTest else { return }
+        //guard !AppConstants.IsRunningTest else { return }
 
         defer {
             // Always make sure there is a single normal tab.
@@ -606,7 +606,8 @@ extension TabManager {
                 }
             }
         }
-        guard count == 0, !DebugSettingsBundleOptions.skipSessionRestore, store.hasTabsToRestoreAtStartup else {
+        //guard count == 0, !DebugSettingsBundleOptions.skipSessionRestore, store.hasTabsToRestoreAtStartup else {
+        guard count == 0, !AppConstants.IsRunningTest, !DebugSettingsBundleOptions.skipSessionRestore, store.hasTabsToRestoreAtStartup else {
             return
         }
 

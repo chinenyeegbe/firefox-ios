@@ -69,6 +69,7 @@ class HistoryTests: BaseTestCase {
         waitforNoExistence(app.tables["Recently Closed Tabs List"])
 
         // Go to the default web site  and check whether the option is enabled
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         waitUntilPageLoad()
         navigator.goto(BrowserTabMenu)
@@ -76,9 +77,11 @@ class HistoryTests: BaseTestCase {
         waitforNoExistence(app.tables["Recently Closed Tabs List"])
 
         // Now go back to default website close it and check whether the option is enabled
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
+        navigator.nowAt(NewTabScreen)
         navigator.goto(BrowserTabMenu)
         navigator.goto(HistoryRecentlyClosed)
 
@@ -88,15 +91,18 @@ class HistoryTests: BaseTestCase {
 
         // This option should be enabled on private mode too
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
+        navigator.performAction(Action.OpenNewTabFromTabTray)
         navigator.goto(HistoryRecentlyClosed)
         waitforExistence(app.tables["Recently Closed Tabs List"])
     }
 
     func testClearRecentlyClosedHistory() {
         // Open the default website
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
+        navigator.nowAt(NewTabScreen)
         navigator.goto(BrowserTabMenu)
         navigator.goto(HistoryRecentlyClosed)
         // Once the website is visited and closed it will appear in Recently Closed Tabs list
@@ -113,10 +119,11 @@ class HistoryTests: BaseTestCase {
 
     func testLongTapOptionsRecentlyClosedItem() {
         // Open the default website
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
-
+        navigator.nowAt(NewTabScreen)
         navigator.goto(BrowserTabMenu)
         navigator.goto(HistoryRecentlyClosed)
         waitforExistence(app.tables["Recently Closed Tabs List"])
@@ -129,10 +136,11 @@ class HistoryTests: BaseTestCase {
 
     func testOpenInNewTabRecentlyClosedItem() {
         // Open the default website
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
-
+        navigator.nowAt(NewTabScreen)
         navigator.goto(HistoryRecentlyClosed)
         waitforExistence(app.tables["Recently Closed Tabs List"])
         XCTAssertTrue(app.tables.cells.staticTexts[closedWebPageLabel].exists)
@@ -148,9 +156,11 @@ class HistoryTests: BaseTestCase {
 
     func testOpenInNewPrivateTabRecentlyClosedItem() {
         // Open the default website
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
+        navigator.nowAt(NewTabScreen)
         navigator.goto(HistoryRecentlyClosed)
         waitforExistence(app.tables["Recently Closed Tabs List"])
         XCTAssertTrue(app.tables.cells.staticTexts[closedWebPageLabel].exists)
@@ -168,9 +178,10 @@ class HistoryTests: BaseTestCase {
     func testPrivateClosedSiteDoesNotAppearOnRecentlyClosed() {
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
         // Open the default website
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         // It is necessary to open two sites so that when one is closed private mode is not closed
-        navigator.openNewURL(urlString: "mozilla.org")
+        navigator.openNewURL(urlString: path(forTestPage: "test-mozilla-org.html"))
         waitUntilPageLoad()
         navigator.goto(TabTray)
         waitforExistence(app.collectionViews.cells[webpage["label"]!])
