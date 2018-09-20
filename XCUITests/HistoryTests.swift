@@ -50,7 +50,6 @@ class HistoryTests: BaseTestCase {
 
     func testClearHistoryFromSettings() {
         // Browse to have an item in history list
-        //navigator.goto(BrowserTabMenu)
         navigator.goto(HomePanel_History)
         waitforExistence(app.tables.cells["HistoryPanel.recentlyClosedCell"])
         XCTAssertTrue(app.tables.cells.staticTexts[webpage["label"]!].exists)
@@ -86,7 +85,7 @@ class HistoryTests: BaseTestCase {
         navigator.goto(HistoryRecentlyClosed)
 
         // The Closed Tabs list should contain the info of the website just closed
-        waitforExistence(app.tables["Recently Closed Tabs List"])
+        waitforExistence(app.tables["Recently Closed Tabs List"], timeout: 3)
         XCTAssertTrue(app.tables.cells.staticTexts[closedWebPageLabel].exists)
 
         // This option should be enabled on private mode too

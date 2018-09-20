@@ -6,7 +6,6 @@ import XCTest
 
 class FindInPageTests: BaseTestCase {
     private func openFindInPageFromMenu() {
-        userState.url = "http://localhost:6571/test-mozilla-book.html"
         navigator.goto(BrowserTab)
         waitUntilPageLoad()
         navigator.goto(PageOptionsMenu)
@@ -22,12 +21,13 @@ class FindInPageTests: BaseTestCase {
         openFindInPageFromMenu()
 
         // Enter some text to start finding
-        app.textFields[""].typeText("Book")
+        app.textFields["FindInPage.searchField"].typeText("Book")
         waitforExistence(app.textFields["Book"], timeout: 15)
         XCTAssertEqual(app.staticTexts["FindInPage.matchCount"].label, "1/500+", "The book word count does match")
     }
 
     func testFindFromMenu() {
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         openFindInPageFromMenu()
 
         // Enter some text to start finding
@@ -62,9 +62,10 @@ class FindInPageTests: BaseTestCase {
     }
 
     func testFindInPageTwoWordsSearch() {
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         openFindInPageFromMenu()
         // Enter some text to start finding
-        app.textFields[""].typeText("The Book of")
+        app.textFields["FindInPage.searchField"].typeText("The Book of")
 
         // Once there are matches, test previous/next buttons
         waitforExistence(app.staticTexts["1/6"])
@@ -76,7 +77,7 @@ class FindInPageTests: BaseTestCase {
         openFindInPageFromMenu()
 
         // Enter some text to start finding
-        app.textFields[""].typeText("The Book of")
+        app.textFields["FindInPage.searchField"].typeText("The Book of")
         waitforExistence(app.textFields["The Book of"], timeout: 15)
         XCTAssertEqual(app.staticTexts["FindInPage.matchCount"].label, "1/500+", "The book word count does match")
     }
@@ -93,6 +94,7 @@ class FindInPageTests: BaseTestCase {
     }
 
     func testQueryWithNoMatches() {
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         openFindInPageFromMenu()
 
         // Try to find text which does not match and check that there are not results
@@ -102,6 +104,7 @@ class FindInPageTests: BaseTestCase {
     }
 
     func testBarDissapearsWhenReloading() {
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         openFindInPageFromMenu()
 
         // Before reloading, it is necessary to hide the keyboard
@@ -114,6 +117,7 @@ class FindInPageTests: BaseTestCase {
     }
 
     func testBarDissapearsWhenOpeningTabsTray() {
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         openFindInPageFromMenu()
 
         // Dismiss keyboard
@@ -131,6 +135,7 @@ class FindInPageTests: BaseTestCase {
     }
 
     func testFindFromSelection() {
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         let textToFind = "from"
 
@@ -146,7 +151,7 @@ class FindInPageTests: BaseTestCase {
         if (app.menuItems["Find in Page"].exists) {
             app.menuItems["Find in Page"].tap()
         } else {
-            app.menuItems["Show more items"].tap()
+            app.menus.children(matching: .menuItem).element(boundBy: 3).tap()
             waitforExistence(app.menuItems["Find in Page"])
             app.menuItems["Find in Page"].tap()
         }
