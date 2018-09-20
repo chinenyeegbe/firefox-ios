@@ -156,7 +156,7 @@ class ReaderViewTest: BaseTestCase {
         checkReadingListNumberOfItems(items: 0)
 
         // Add item to Reading List from Page Options Menu
-        userState.url = "http://localhost:6571/test-mozilla-book.html"
+        userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
         waitUntilPageLoad()
         navigator.browserPerformAction(.addReadingListOption)
