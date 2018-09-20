@@ -126,7 +126,8 @@ class ActivityStreamTest: BaseTestCase {
     func testTopSitesRemoveAllExceptPinnedClearPrivateData() {
         navigator.goto(BrowserTab)
         navigator.performAction(Action.PinToTopSitesPAM)
-        navigator.goto(HomePanelsScreen)
+        navigator.goto(BrowserTabMenu)
+        navigator.goto(HomePanel_TopSites)
         waitforExistence(app.collectionViews.cells[newTopSite["topSiteLabel"]!])
         XCTAssertTrue(app.collectionViews.cells[newTopSite["topSiteLabel"]!].exists)
         checkNumberOfExpectedTopSites(numberOfExpectedTopSites: 6)

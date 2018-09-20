@@ -23,7 +23,7 @@ class FindInPageTests: BaseTestCase {
 
         waitforExistence(app/*@START_MENU_TOKEN@*/.buttons["TabLocationView.pageOptionsButton"]/*[[".buttons[\"Page Options Menu\"]",".buttons[\"TabLocationView.pageOptionsButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/, timeout: 15)
         app/*@START_MENU_TOKEN@*/.buttons["TabLocationView.pageOptionsButton"]/*[[".buttons[\"Page Options Menu\"]",".buttons[\"TabLocationView.pageOptionsButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        waitforExistence(app.tables["Context Menu"].cells["menu-FindInPage"])
+        waitforExistence(app.tables["Context Menu"].cells["menu-FindInPage"], timeout: 10)
         app.tables["Context Menu"].cells["menu-FindInPage"].tap()
 
         // Enter some text to start finding

@@ -4,7 +4,7 @@
 
 import XCTest
 
-let website1: [String: String] = ["url": path(forTestPage: "test-mozilla-org.html"), "label": "Internet for people, not profit — Mozilla", "value": "localhost:6571"]
+let website1: [String: String] = ["url": path(forTestPage: "test-mozilla-org.html"), "label": "Internet for people, not profit — Mozilla", "value": "localhost"]
 let website2 = path(forTestPage: "test-example.html")
 
 let PDFWebsite = ["url": "http://www.pdf995.com/samples/pdf.pdf"]
@@ -36,6 +36,7 @@ class ToolbarTests: BaseTestCase {
 
         // Navigate to two pages and press back once so that all buttons are enabled in landscape mode.
         navigator.openURL(website1["url"]!)
+        waitUntilPageLoad()
         waitForValueContains(app.textFields["url"], value: website1["value"]!)
 
 
@@ -80,6 +81,7 @@ class ToolbarTests: BaseTestCase {
 
     func testClearURLTextUsingBackspace() {
         navigator.openURL(website1["url"]!)
+        waitUntilPageLoad()
         waitForValueContains(app.textFields["url"], value: website1["value"]!)
 
         // Simulate pressing on backspace key should remove the text

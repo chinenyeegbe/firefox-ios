@@ -58,6 +58,8 @@ class ReaderViewTest: BaseTestCase {
     func testAddToReadingListPrivateMode() {
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
         // Initially reading list is empty
+        navigator.performAction(Action.OpenNewTabFromTabTray)
+        navigator.goto(BrowserTabMenu)
         navigator.goto(HomePanel_ReadingList)
 
         // Check the button is selected (is disabled and the rest bookmarks and so are enabled)

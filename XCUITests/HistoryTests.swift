@@ -90,6 +90,8 @@ class HistoryTests: BaseTestCase {
         // This option should be enabled on private mode too
         navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
         navigator.performAction(Action.OpenNewTabFromTabTray)
+        navigator.nowAt(NewTabScreen)
+        navigator.goto(BrowserTabMenu)
         navigator.goto(HistoryRecentlyClosed)
         waitforExistence(app.tables["Recently Closed Tabs List"])
     }

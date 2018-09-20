@@ -122,6 +122,7 @@ class SearchTests: BaseTestCase {
         app.textFields["address"].press(forDuration: 5)
         app.menuItems["Select All"].tap()
         app.menuItems["Copy"].tap()
+        waitforExistence(app.buttons["goBack"])
         app.buttons["goBack"].tap()
         navigator.nowAt(HomePanelsScreen)
         navigator.goto(URLBarOpen)
