@@ -109,7 +109,9 @@ class ActivityStreamTest: BaseTestCase {
 
     func testTopSitesRemoveAllExceptDefaultClearPrivateData() {
         navigator.goto(BrowserTab)
+        navigator.goto(BrowserTabMenu)
         navigator.goto(HomePanel_TopSites)
+        waitforExistence(app.collectionViews.cells["mozilla"])
         XCTAssertTrue(app.collectionViews.cells["mozilla"].exists)
         // A new site has been added to the top sites
         checkNumberOfExpectedTopSites(numberOfExpectedTopSites: 6)
@@ -138,7 +140,6 @@ class ActivityStreamTest: BaseTestCase {
     }
 
     func testTopSitesShiftAfterRemovingOne() {
-
         // Check top site in first and second cell
         let topSiteFirstCell = app.collectionViews.cells.collectionViews.cells.element(boundBy: 0).label
         let topSiteSecondCell = app.collectionViews.cells.collectionViews.cells.element(boundBy: 1).label

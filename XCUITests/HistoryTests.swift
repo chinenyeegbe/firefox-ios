@@ -70,14 +70,13 @@ class HistoryTests: BaseTestCase {
         // Go to the default web site  and check whether the option is enabled
         userState.url = path(forTestPage: "test-mozilla-book.html")
         navigator.goto(BrowserTab)
-        waitUntilPageLoad()
         navigator.goto(BrowserTabMenu)
         navigator.goto(HistoryRecentlyClosed)
         waitforNoExistence(app.tables["Recently Closed Tabs List"])
 
         // Now go back to default website close it and check whether the option is enabled
-        userState.url = path(forTestPage: "test-mozilla-book.html")
-        navigator.goto(BrowserTab)
+        navigator.openURL(path(forTestPage: "test-mozilla-book.html"))
+        waitUntilPageLoad()
         navigator.goto(TabTray)
         navigator.performAction(Action.AcceptRemovingAllTabs)
         navigator.nowAt(NewTabScreen)

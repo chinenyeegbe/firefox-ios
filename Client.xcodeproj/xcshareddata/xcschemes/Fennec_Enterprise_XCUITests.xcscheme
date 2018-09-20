@@ -215,6 +215,9 @@
                   Identifier = "BookmarkingTests/testBookmarksAwesomeBar()">
                </Test>
                <Test
+                  Identifier = "BrowsingPDFTests">
+               </Test>
+               <Test
                   Identifier = "ClipBoardTests/testClipboardPasteAndGo()">
                </Test>
                <Test

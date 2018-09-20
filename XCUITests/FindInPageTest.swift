@@ -17,8 +17,16 @@ class FindInPageTests: BaseTestCase {
     }
 
     func testFindInLargeDoc() {
-        userState.url = "http://localhost:6571/find-in-page-test.html"
-        openFindInPageFromMenu()
+        //userState.url = "http://localhost:6571/find-in-page-test.html"
+        navigator.openURL("http://localhost:6571/find-in-page-test.html")
+        // Workaround until FxSGraph is fixed to allow the previos way with goto
+        navigator.nowAt(BrowserTab)
+        //navigator.goto(BrowserTabMenu)
+
+        waitforExistence(app/*@START_MENU_TOKEN@*/.buttons["TabLocationView.pageOptionsButton"]/*[[".buttons[\"Page Options Menu\"]",".buttons[\"TabLocationView.pageOptionsButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/, timeout: 15)
+        app/*@START_MENU_TOKEN@*/.buttons["TabLocationView.pageOptionsButton"]/*[[".buttons[\"Page Options Menu\"]",".buttons[\"TabLocationView.pageOptionsButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        waitforExistence(app.tables["Context Menu"].cells["menu-FindInPage"])
+        app.tables["Context Menu"].cells["menu-FindInPage"].tap()
 
         // Enter some text to start finding
         app.textFields["FindInPage.searchField"].typeText("Book")
@@ -73,10 +81,13 @@ class FindInPageTests: BaseTestCase {
     }
 
     func testFindInPageTwoWordsSearchLargeDoc() {
-        userState.url = "http://localhost:6571/find-in-page-test.html"
-        openFindInPageFromMenu()
-
+        navigator.openURL("http://localhost:6571/find-in-page-test.html")
+        // Workaround until FxSGraph is fixed to allow the previos way with goto
+        navigator.nowAt(BrowserTab)
+        waitforExistence(app/*@START_MENU_TOKEN@*/.buttons["TabLocationView.pageOptionsButton"]/*[[".buttons[\"Page Options Menu\"]",".buttons[\"TabLocationView.pageOptionsButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/, timeout: 15)
+        app/*@START_MENU_TOKEN@*/.buttons["TabLocationView.pageOptionsButton"]/*[[".buttons[\"Page Options Menu\"]",".buttons[\"TabLocationView.pageOptionsButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
         // Enter some text to start finding
+        app.tables["Context Menu"].cells["menu-FindInPage"].tap()
         app.textFields["FindInPage.searchField"].typeText("The Book of")
         waitforExistence(app.textFields["The Book of"], timeout: 15)
         XCTAssertEqual(app.staticTexts["FindInPage.matchCount"].label, "1/500+", "The book word count does match")
@@ -86,7 +97,7 @@ class FindInPageTests: BaseTestCase {
         userState.url = "lorem2.com"
         openFindInPageFromMenu()
         // Enter some text to start finding
-        app.textFields[""].typeText("lorem")
+        app.textFields["FindInPage.searchField"].typeText("lorem")
 
         // There should be matches
         waitforExistence(app.staticTexts["1/5"])
